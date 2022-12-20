@@ -17,9 +17,9 @@ public class Fantasma extends Thread {
     int Alto_fantasma;
     JPanel miJP;
     Graphics g;
-    ProyectoJuego FeidG;
+    Feid FeidG;
 
-    public Fantasma(JPanel miJ, int xi, int yi, ProyectoJuego FJ) {
+    public Fantasma(JPanel miJ, int xi, int yi, Feid FJ) {
         this.g = miJ.getGraphics();
         this.miJP = miJ;
         this.x = xi;

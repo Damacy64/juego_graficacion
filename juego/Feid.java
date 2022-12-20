@@ -8,7 +8,7 @@ import javax.swing.ImageIcon;
  *
  * @author pzx64
  */
-public class ProyectoJuego {
+public class Feid {
 
     int x;
     int y;
@@ -17,9 +17,9 @@ public class ProyectoJuego {
     int Ancho;
     int Alto;
 
-    ProyectoJuego(JPanel JP) {
-        this.x = 0;
-        this.y = 0;
+    public Feid(JPanel JP) {
+        this.x = 275;
+        this.y = 280;
         this.miJP = JP;
         this.Ancho = 0;
         this.Alto = 0;

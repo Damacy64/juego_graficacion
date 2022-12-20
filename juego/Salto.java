@@ -12,12 +12,12 @@ import javax.swing.JPanel;
 public class Salto extends Thread {
 
     int x, y;
-    ProyectoJuego Feid;
+    Feid Feid;
     JPanel miJP;
     Graphics g;
     String direc;
 
-    public Salto(JPanel miJ, int xi, int yi, ProyectoJuego FJ) {
+    public Salto(JPanel miJ, int xi, int yi, Feid FJ) {
         super();
         this.g = miJ.getGraphics();
         this.miJP = miJ;
