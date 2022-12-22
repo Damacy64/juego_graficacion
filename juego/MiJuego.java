@@ -9,7 +9,9 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.KeyEvent;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+
 /**
  *
  * @author pzx64
@@ -18,6 +20,7 @@ public class MiJuego extends javax.swing.JFrame {
 
     Feid feid;
     FondoPanel fondo = new FondoPanel();
+
     /**
      * Creates new form MiJuego
      */
@@ -25,9 +28,6 @@ public class MiJuego extends javax.swing.JFrame {
         this.setContentPane(fondo);
         initComponents();
         feid = new Feid(jPanel1);
-        
-        Fantasma MFantasma = new Fantasma(jPanel1, 0, 200, feid);
-        MFantasma.start();
     }
 
     /**
@@ -90,7 +90,6 @@ public class MiJuego extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
 
-    
     private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
         // TODO add your handling code here:
         int x, y;
@@ -109,6 +108,9 @@ public class MiJuego extends javax.swing.JFrame {
                     Direc = "C:\\Users\\pzx64\\OneDrive\\Documentos\\NetBeansProjects\\ProyectoJuego\\src\\imagenes\\feidL.png";
                     feid.x = x;
                     feid.Dir = Direc;
+                    if (feid.x <= 50) {
+                        JOptionPane.showMessageDialog(this, "Colision");
+                    }
                     break;
                 }
 
@@ -191,6 +193,7 @@ public class MiJuego extends javax.swing.JFrame {
     class FondoPanel extends JPanel {
 
         private Image imagen;
+        private Image fantasma;
 
         @Override
         public void paint(Graphics g) {
@@ -198,7 +201,10 @@ public class MiJuego extends javax.swing.JFrame {
             g.drawImage(imagen, 0, 0, getWidth(), getHeight(), this);
             setOpaque(false);
             super.paint(g);
-            //594, 433
+            fantasma = new ImageIcon(getClass().getResource("/imagenes/fantasma.png")).getImage();
+            g.drawImage(fantasma, 50, 300, 50, 50, this);
+            setOpaque(false);
+            super.paint(g);
         }
     }
 }
