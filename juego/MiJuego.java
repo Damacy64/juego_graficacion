@@ -19,15 +19,19 @@ import javax.swing.JPanel;
 public class MiJuego extends javax.swing.JFrame {
 
     Feid feid;
-    FondoPanel fondo = new FondoPanel();
+    Fantasma fantasma;
 
     /**
      * Creates new form MiJuego
      */
     public MiJuego() {
-        this.setContentPane(fondo);
         initComponents();
         feid = new Feid(jPanel1);
+        feid.Dir = "C:\\Users\\pzx64\\OneDrive\\Documentos\\NetBeansProjects\\ProyectoJuego\\src\\imagenes\\feidD.png";
+        Fantasma fantasma = new Fantasma(jPanel1);
+        fantasma.Direccion = "C:\\Users\\pzx64\\OneDrive\\Documentos\\NetBeansProjects\\ProyectoJuego\\src\\imagenes\\fantasma.png";
+        fantasma.dibuja_fantasma(jPanel1.getGraphics(), 50, 50, fantasma.Direction());
+
     }
 
     /**
@@ -39,37 +43,25 @@ public class MiJuego extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new FondoPanel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        jPanel1 = new JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setIconImages(null);
         addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 formKeyPressed(evt);
             }
         });
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/ladrillos.png"))); // NOI18N
-
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/ladrillos.png"))); // NOI18N
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 311, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(1, 1, 1)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 337, Short.MAX_VALUE))
+            .addGap(0, 649, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(383, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+            .addGap(0, 433, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -97,6 +89,13 @@ public class MiJuego extends javax.swing.JFrame {
         y = feid.CordY();
         String Direc = "";
         switch (evt.getKeyCode()) {
+            case KeyEvent.VK_SPACE:
+                
+                    Fantasma fantasma = new Fantasma(jPanel1);
+                    fantasma.Direccion = "C:\\Users\\pzx64\\OneDrive\\Documentos\\NetBeansProjects\\ProyectoJuego\\src\\imagenes\\fantasma.png";
+                    fantasma.dibuja_fantasma(jPanel1.getGraphics(), 50, 50, fantasma.Direction());
+                    break;
+                
             case KeyEvent.VK_LEFT:
                 if (feid.CordX() < -10) {
                     Direc = "C:\\Users\\pzx64\\OneDrive\\Documentos\\NetBeansProjects\\ProyectoJuego\\src\\imagenes\\feidL.png";
@@ -108,9 +107,6 @@ public class MiJuego extends javax.swing.JFrame {
                     Direc = "C:\\Users\\pzx64\\OneDrive\\Documentos\\NetBeansProjects\\ProyectoJuego\\src\\imagenes\\feidL.png";
                     feid.x = x;
                     feid.Dir = Direc;
-                    if (feid.x <= 50) {
-                        JOptionPane.showMessageDialog(this, "Colision");
-                    }
                     break;
                 }
 
@@ -186,25 +182,7 @@ public class MiJuego extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
-    class FondoPanel extends JPanel {
 
-        private Image imagen;
-        private Image fantasma;
-
-        @Override
-        public void paint(Graphics g) {
-            imagen = new ImageIcon(getClass().getResource("/imagenes/fondoR.png")).getImage();
-            g.drawImage(imagen, 0, 0, getWidth(), getHeight(), this);
-            setOpaque(false);
-            super.paint(g);
-            fantasma = new ImageIcon(getClass().getResource("/imagenes/fantasma.png")).getImage();
-            g.drawImage(fantasma, 50, 300, 50, 50, this);
-            setOpaque(false);
-            super.paint(g);
-        }
-    }
 }

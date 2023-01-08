@@ -25,13 +25,13 @@ public class Feid {
         this.Alto = 0;
     }
 
-    public void Dibuja_feid(Graphics g, int xi, int yi, String Direccion) {
-        this.x = xi;
-        this.y = yi;
+    public void Dibuja_feid(Graphics g, int x, int y, String Direccion) {
+        this.x = x;
+        this.y = y;
         this.miJP.update(g);
         this.Dir = Direccion;
         ImageIcon MImagen = new ImageIcon(Direccion);
-        g.drawImage(MImagen.getImage(), xi, yi, miJP);
+        g.drawImage(MImagen.getImage(), x, y, miJP);
         Alto = MImagen.getIconHeight();
         Ancho = MImagen.getIconWidth();
     }
