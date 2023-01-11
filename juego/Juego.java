@@ -1,71 +1,111 @@
 package juego;
 
 import java.awt.Color;
-import java.awt.Panel;
+import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
  *
  * @author pzx64
  */
-public class Juego extends JFrame implements KeyListener{
+public class Juego extends JPanel{
 
-    JPanel panel;
-    JLabel feid;
-    JLabel fantasma;
+    public static boolean haColisionado = false;
+    Fantasmas fantasma = new Fantasmas(this);
+    Feid feid = new Feid();
 
-    public Juego() {
-        setSize(800, 500);
-        setTitle("Mi juego");
-        setLocationRelativeTo(null);
-        iniciarComponentes();
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-    }
+    public Juego(){
+        addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent ke) {
+            }
 
-    public static void main(String[] args) {
-        Juego ventana = new Juego();
-        ventana.setVisible(true);
-    }
+            @Override
+            public void keyPressed(KeyEvent ke) {
+                feid.KeyPressed(ke);
+            }
 
-    private void iniciarComponentes() {
-        panel = new JPanel();
-        panel.setLayout(null);
-        panel.setBackground(new Color(112, 240, 68));
-        this.getContentPane().add(panel);
-        feid = new JLabel(new ImageIcon("feidD.png"));
-        feid.setBounds(0, 350, 100, 112);
-        panel.add(feid);
-        addKeyListener(this);
+            @Override
+            public void keyReleased(KeyEvent ke) {
+            }
+        });
+        
         setFocusable(true);
-        fantasma = new JLabel(new ImageIcon("fantasma.png"));
-        fantasma.setBounds(10, 10, 63, 70);
-        panel.add(fantasma);
-        //add(feid);
     }
-
+    
     @Override
-    public void keyTyped(KeyEvent ke) {
+    public void paint(Graphics g){
+        super.paint(g);
+        
+        ImageIcon fondo = new ImageIcon(getClass().getResource("../imagenes/fondo.png"));
+        g.drawImage(fondo.getImage(), 0, 0, getWidth(),getHeight(),this);
+        
+        Font score = new Font("Arial", Font.BOLD, 25);
+        g.setFont(score);
+        g.setColor(Color.BLUE);
+        g.drawString("Puntaje: " + fantasma.obtenerPuntos(), 520, 50);
+        
+        feid.paint(g);
+        
+        fantasma.paint(g);
+        fantasma.mover();
+        
+        g.dispose();
     }
-
-    @Override
-    public void keyPressed(KeyEvent ke) {
-        switch (ke.getKeyCode()) {
-            case KeyEvent.VK_LEFT:
-                feid.setLocation(feid.getX() - 10, feid.getY());
-                break;
-            case KeyEvent.VK_RIGHT:
-                feid.setLocation(feid.getX() + 10, feid.getY());
-                break;
+    
+    public static void main(String[] args) {
+        JFrame ventana = new JFrame("Mi juego");
+        Juego juego = new Juego();
+        ventana.add(juego);
+        ventana.setSize(700, 700);
+        ventana.setVisible(true);
+        ventana.setResizable(false);
+        ventana.setLocationRelativeTo(null);
+        ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        
+        while(true){
+            if(haColisionado | Fantasmas.nivel == 5){
+                if(Fantasmas.nivel == 5){JOptionPane.showMessageDialog(null, "Ganaste");}
+                    int reiniciaJuego = JOptionPane.showConfirmDialog(null, "Haz perdido, "
+                    + "¿Quieres reiniciar el juego?", "Perdiste", JOptionPane.YES_NO_OPTION);
+                    if(reiniciaJuego == 0){
+                        reiniciaValores();
+                    } else if(reiniciaJuego == 1){
+                        System.exit(0);
+                    }
+            }
+            
+            try{
+                Thread.sleep(10);
+            } catch(InterruptedException ex){
+                System.out.println(ex.toString());
+            }
+            
+            juego.repaint();
         }
     }
-
-    @Override
-    public void keyReleased(KeyEvent ke) {
+    
+    public static void reiniciaValores(){
+        Fantasmas.xFantasma1 = 600;
+        Fantasmas.yFantasma1 = 700;
+        Fantasmas.xFantasma2 = 700;
+        Fantasmas.yFantasma2 = 100;
+        Fantasmas.xFantasma3 = -20;
+        Fantasmas.yFantasma3 = 600;
+        Fantasmas.xFantasma4 = 300;
+        Fantasmas.yFantasma4 = -20;
+        Feid.x = 10;
+        Feid.y = 10;
+        Fantasmas.nivel = 1;
+        haColisionado = false;
+        Fantasmas.puntos = 0;
     }
 
+    
 }
